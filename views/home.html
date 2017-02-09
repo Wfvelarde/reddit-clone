@@ -1,0 +1,109 @@
+<div class="pull-right">
+    <p><a class="btn btn-info">New Post</a></p>
+</div>
+<ul class="nav nav-pils">
+    <li role="presentation" class="active">
+        <input type="search" class="form-control input-sm search-form" placeholder="Filter" ng-model="search">
+    </li>
+    <div class="form-inline">
+        <label for="sort"> Sort by </label>
+        <select id="sort" class="form-control">
+            <option ng-checked="order = 'title'">Order by title</option>
+            <option ng-checked="order = 'author'">Order by author</option>
+        </select>
+    </div>
+</ul>
+<div class="row">
+    <div class="col-md-8">
+        <form name="postForm" ng-submit="addPost()" novalidate>
+            <div>
+                <label for="title">Title</label>
+                <input id="title" class="form-control" type="text" name="title" ng-model="newpost.title" ng-required="true">
+                <div ng-show="postForm.title.$touched && postForm.title.$invalid">
+                    <small>Enter a title</small>
+                </div>
+            </div>
+            <div>
+                <label for="body">Body</label>
+                <input id="body" class="form-control" type="text" name="body" ng-model="newpost.body" ng-required="true">
+                <div ng-show="postForm.body.$touched && postForm.body.$invalid">
+                    <small>Enter a story</small>
+                </div>
+            </div>
+            <div>
+                <label for="author">Author</label>
+                <input id="author" class="form-control" type="text" name="author" ng-model="newpost.author" ng-required="true">
+                <div ng-show="postForm.author.$touched && postForm.author.$invalid">
+                    <small>Enter an author name</small>
+                </div>
+            </div>
+            <div>
+                <label for="image-url">Image URL</label>
+                <input id="image-url" class="form-control" type="text" name="image" ng-model="newpost.image" ng-required="true">
+                <div ng-show="postForm.image.$touched && postForm.image.$invalid">
+                    <small>Enter an image Url</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" ng-click="add" ng-disabled="postForm.$invalid">Add a post</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="well" ng-repeat="post in posts | orderBy: order | filter: search">
+            <div class="media-left">
+                <img ng-src="{{post.image}}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">
+                {{post.title}}
+                |
+                <a ng-click="upVote()"><i class="glyphicon glyphicon-arrow-up"></i></a>
+                <a ng-click="downVote()"><i class="glyphicon glyphicon-arrow-down"></i></a>
+                {{count}}
+                </h4>
+                <div class="text-right">
+                    {{post.author}}
+                </div>
+                <p>
+                    {{post.body}}
+                </p>
+                <div>
+                    Some time ago |
+                    <i class="glyphicon glyphicon-comment"></i>
+                    <a>
+                      Some comments
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-1">
+                        <hr>
+                        <p>
+                            Comment text
+                        </p>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--             <ul id="post-list">
+                <li>
+                    <button ng-click="upVote()">Up Vote</button>
+                    <button ng-click="downVote()">Down Vote</button>
+                    <span>{{count}}</span>
+                    <h3>{{post.title}}</h3>
+                    <h5>{{post.author}}</h5>
+                    <p>{{post.body}}</p>
+                </li>
+            </ul> -->
